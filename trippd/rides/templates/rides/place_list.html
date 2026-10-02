@@ -11,7 +11,7 @@
     {% if places %}
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {% for p in places %}
-          {% include 'rides/partials/place_card.html' with place=p %}
+          {% include 'rides/partials/place_card.html' with nearby_place=p %}
         {% endfor %}
       </div>
     {% else %}

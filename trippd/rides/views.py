@@ -1090,7 +1090,12 @@ def place_section(request, pk):
         limit=3,
     )
 
-    saved_place_ids = set(request.user.saved_places.values_list("place_id", flat=True))
+    if request.user.is_authenticated:
+        saved_place_ids = set(
+            request.user.saved_places.values_list("place_id", flat=True)
+        )
+    else:
+        saved_place_ids = set()
     created_places = create_places(
         places, saved_place_ids, place.latitude, place.longitude
     )
@@ -1169,9 +1174,12 @@ class PlaceSectionListView(TemplateView):
                 type_filter=self.place_types[section],
                 limit=9,
             )
-            saved_place_ids = set(
-                self.request.user.saved_places.values_list("place_id", flat=True)
-            )
+            if self.request.user.is_authenticated:
+                saved_place_ids = set(
+                    self.request.user.saved_places.values_list("place_id", flat=True)
+                )
+            else:
+                saved_place_ids = set()
             items = create_places(
                 raw_places, saved_place_ids, place.latitude, place.longitude
             )
@@ -1270,7 +1278,6 @@ class SavedPlaceListView(LoginRequiredMixin, ListView):
 
 
 @require_POST
-@login_required
 def ask_ai_about_place(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     question_type = request.POST.get("question_type").strip().lower()
@@ -1318,9 +1325,12 @@ class PlaceSearchView(TemplateView):
             )
             print("places are ", places)
 
-        saved_place_ids = set(
-            self.request.user.saved_places.values_list("place_id", flat=True)
-        )
+        if self.request.user.is_authenticated:
+            saved_place_ids = set(
+                self.request.user.saved_places.values_list("place_id", flat=True)
+            )
+        else:
+            saved_place_ids = set()
 
         created_places = create_places(
             places, saved_place_ids, place.latitude, place.longitude
