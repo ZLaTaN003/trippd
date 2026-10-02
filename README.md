@@ -5,12 +5,18 @@ The idea behind the project was to find a way to connect likeminded people think
 > This project is still under development
 
 ## Preview
+
+### Discover Places
+
 ![discoverplaces](demo/discv.gif)
-Discover Places
+
+### Trip List
+
 ![tripspage](demo/trips.png)
-Trip list
+
+### Joining a Trip
+
 ![tripjoining](demo/tripjoin.gif)
-Trip Joining
 
 ## Features
 
